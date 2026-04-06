@@ -4,7 +4,7 @@
 
 Este é um utilitário em **Shell Script** desenvolvido para automatizar o backup e a organização de arquivos de log em sistemas Linux. O script comprime diretórios, mantém um histórico de auditoria e permite o agendamento automático via `cron`.
 
-Este projeto faz parte de uma jornada de estudos em **DevOps e Infraestrutura**.
+Este projeto faz parte do Roadmap.sh/DevOps. *https://roadmap.sh/projects/log-archive-tool*
 
 ## 🚀 Funcionalidades
 
