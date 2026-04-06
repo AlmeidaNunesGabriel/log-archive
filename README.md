@@ -1,5 +1,5 @@
 
-
+ (English version at the end.)
 # 📦 Log Archive Tool
 
 Este é um utilitário em **Shell Script** desenvolvido para automatizar o backup e a organização de arquivos de log em sistemas Linux. O script comprime diretórios, mantém um histórico de auditoria e permite o agendamento automático via `cron`.
@@ -83,3 +83,89 @@ fi
 
 ---
 Desenvolvido por **Gabriel Almeida Nunes**.
+
+---
+
+# 📦 Log Archive Tool
+
+This is a **Shell Script** utility designed to automate the backup and organization of log files on Linux systems. The script compresses directories, maintains an audit history, and enables automatic scheduling via `cron`.
+
+This project is part of the **Roadmap.sh/DevOps** curriculum. *[https://roadmap.sh/projects/log-archive-tool](https://roadmap.sh/projects/log-archive-tool)*
+
+## 🚀 Features
+
+* **Gzip Compression**: Reduces log size to save disk space.
+* **Dynamic Creation**: Ensures the destination folder exists before execution.
+* **Audit Logs**: Records every successful action in a text file.
+* **Interactive Automation**: Configures system scheduling without the need for manual file editing.
+
+## 🛠️ Prerequisites
+
+* Linux System (Tested on distributions like **Debian** and **Mint**).
+* **Bash** command interpreter.
+* Write permissions in the directory where the script will be executed.
+
+## 📋 How to Use
+
+1. **Grant execution permission**:
+   ```bash
+   chmod +x log-archive.sh
+   ```
+
+2. **Manual execution**:
+   Pass the directory containing the logs as the first argument:
+   ```bash
+   ./log-archive.sh /var/log
+   ```
+
+---
+
+## 🔍 Code Breakdown (Step-by-Step)
+
+For educational purposes, here is an explanation of what the main lines of the script do:
+
+### 1. Argument Verification
+```bash
+if [ -z "$1" ]; then ...
+```
+* The script checks if you provided a directory after the command. If the variable `$1` (the first argument) is empty, it displays a help message and exits with an error (`exit 1`).
+
+### 2. Variables and Date Definition
+```bash
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+ARCHIVE_NAME="logs_archive_${TIMESTAMP}.tar.gz"
+```
+* We use the `date` command to generate a unique timestamp. This prevents one backup from overwriting another.
+
+### 3. The Compression Command
+```bash
+tar -czf "${ARCHIVE_DEST}/${ARCHIVE_NAME}" "$LOG_DIR"
+```
+* **`-c`**: Create a new archive.
+* **`-z`**: Compress using the `gzip` algorithm.
+* **`-f`**: Defines the final filename.
+
+### 4. Scheduling with Crontab
+```bash
+(crontab -l 2>/dev/null; echo "$CRON_LINE") | crontab -
+```
+* This line is crucial: it reads the user's current schedule (`crontab -l`), appends the new command line (`echo "$CRON_LINE"`), and sends everything back to the scheduling system. The `2>/dev/null` part ensures no error is shown if your `crontab` is currently empty.
+
+### 5. Interactive Terminal Check
+```bash
+if [ -t 0 ]; then
+    setup_cron
+fi
+```
+* The `[ -t 0 ]` command checks if the script is being run by a human in the terminal or by an automated process. This prevents the script from "hanging" while waiting for a yes/no response when running automatically at night.
+
+---
+
+## 📂 File Structure
+
+* `log-archive.sh`: The automation engine.
+* `archive_log.txt`: Where the success history is stored.
+* `/archives`: Folder created to store the `.tar.gz` files.
+
+---
+Developed by **Gabriel Almeida Nunes**.
