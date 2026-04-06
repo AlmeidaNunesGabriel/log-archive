@@ -63,7 +63,7 @@ tar -czf "${ARCHIVE_DEST}/${ARCHIVE_NAME}" "$LOG_DIR"
 ```bash
 (crontab -l 2>/dev/null; echo "$CRON_LINE") | crontab -
 ```
-* Esta linha é poderosa: ela lê o agendamento atual do usuário (`crontab -l`), adiciona a nova linha de comando (`echo "$CRON_LINE"`) e envia tudo de volta para o sistema de agendamento. O `2>/dev/null` serve para não exibir erro caso o seu `crontab` ainda esteja vazio.
+* Esta linha é muito importante: ela lê o agendamento atual do usuário (`crontab -l`), adiciona a nova linha de comando (`echo "$CRON_LINE"`) e envia tudo de volta para o sistema de agendamento. O `2>/dev/null` serve para não exibir erro caso o seu `crontab` ainda esteja vazio.
 
 ### 5. Verificação de Terminal Interativo
 ```bash
